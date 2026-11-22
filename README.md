@@ -122,6 +122,7 @@ Upload video -> Extract frames (OpenCV) -> YOLOv11 detection -> Temporal consist
 ├── app2.py             # Alternate version of the app
 ├── data.yaml           # Dataset configuration (13 classes)
 ├── requirements.txt    # Python dependencies
+├── best.pt             # Trained YOLOv11 weights
 ├── static/             # Uploaded and detected frames, CSS
 ├── templates/          # HTML templates
 ├── LICENSE
@@ -134,8 +135,8 @@ Upload video -> Extract frames (OpenCV) -> YOLOv11 detection -> Temporal consist
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/devanbeeda/wildlife-detection-temporal-consistency.git
-cd wildlife-detection-temporal-consistency
+git clone https://github.com/devanbeeda/Livestock-Farm-Protection-from-Harmful-Wild-Animals-Using-YOLOV11-With-Temporal-Consistency.git
+cd Livestock-Farm-Protection-from-Harmful-Wild-Animals-Using-YOLOV11-With-Temporal-Consistency
 
 # 2. (Optional) create a virtual environment
 python -m venv venv
