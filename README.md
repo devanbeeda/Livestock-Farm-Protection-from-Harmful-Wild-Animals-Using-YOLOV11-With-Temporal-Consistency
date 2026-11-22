@@ -7,14 +7,14 @@ Real-time wildlife intrusion detection for livestock farms. The system detects 1
 ![Flask](https://img.shields.io/badge/Web%20App-Flask-lightgrey)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-<!-- TODO: add a screenshot or GIF of the app, saved as static/demo.png -->
-<!-- ![Demo](static/demo.png) -->
+![Detection output](screenshots/app1_output.png)
 
 ---
 
 ## Table of Contents
 - [Problem Statement](#problem-statement)
 - [Key Features](#key-features)
+- [Screenshots](#screenshots)
 - [Results](#results)
 - [How It Works](#how-it-works)
 - [Dataset](#dataset)
@@ -41,7 +41,20 @@ This project combines a fast YOLOv11 detector with a temporal consistency check,
 - **Temporal consistency filtering**: an intrusion is confirmed only after the animal appears in 5 consecutive frames
 - **Automated email alerts** with the annotated frame attached as evidence
 - **Flask web interface** to upload a surveillance video and view the result
+- **Comparison app** (`app2.py`) that shows base YOLO and YOLO with temporal consistency side by side
 - Fast inference: about **2.6 ms per image** on a Tesla T4 GPU
+
+## Screenshots
+
+**Main app (`app.py`):** upload a video, get the detected animal, the annotated frame, and an email alert.
+
+| Upload page | Detection result |
+|---|---|
+| ![Upload page](screenshots/app1_ui.png) | ![Detection result](screenshots/app1_output.png) |
+
+**Comparison app (`app2.py`):** shows plain YOLO next to YOLO with temporal consistency. Here, base YOLO flags a detection but the temporal filter rejects it, which is how single-frame false alarms are removed.
+
+![YOLO vs YOLO with temporal consistency](screenshots/app2_comparison.png)
 
 ## Results
 
@@ -118,18 +131,17 @@ Upload video -> Extract frames (OpenCV) -> YOLOv11 detection -> Temporal consist
 
 ```
 .
-├── app.py              # Flask app: video upload, detection, temporal filter, email alert
-├── app2.py             # Alternate version of the app
+├── app.py              # Main Flask app: video upload, detection, temporal filter, email alert
+├── app2.py             # Comparison app: base YOLO vs YOLO + temporal consistency
+├── best.pt             # Trained YOLOv11 weights
 ├── data.yaml           # Dataset configuration (13 classes)
 ├── requirements.txt    # Python dependencies
-├── best.pt             # Trained YOLOv11 weights
 ├── static/             # Uploaded and detected frames, CSS
 ├── templates/          # HTML templates
+├── screenshots/        # Images used in this README
 ├── LICENSE
 └── README.md
 ```
-
-> Place your trained weights (`best.pt`) in the project root. Weights are not included in the repository.
 
 ## Installation
 
@@ -149,7 +161,8 @@ pip install -r requirements.txt
 ## Usage
 
 ```bash
-python app.py
+python app.py     # main detection app
+python app2.py    # comparison: base YOLO vs YOLO + temporal consistency
 ```
 
 Open `http://127.0.0.1:5000` in your browser, upload a surveillance video, and the app will process it. If a harmful animal is confirmed across 5 consecutive frames, the annotated frame is shown on the page and an email alert is sent.
